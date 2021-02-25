@@ -96,15 +96,15 @@ void NewProjectAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
     trig1.setSampleRate(sampleRate);
-    trig2.setFrequency(sampleRate);
+    trig2.setSampleRate(sampleRate);
 
     sine1.setSampleRate(sampleRate);
     sine2.setSampleRate(sampleRate);
-   
-   
+
+
     trig1.setFrequency(440.0f);
     trig2.setFrequency(2200.0f);
-    
+
     sine1.setFrequency(0.1f);
     sine2.setFrequency(0.2f);
 
@@ -156,7 +156,7 @@ void NewProjectAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
     // this code if your algorithm always overwrites all the output channels.
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
-    
+
     int numSamples = buffer.getNumSamples();
     float* leftChannel = buffer.getWritePointer(0); //left channel samples
     float* rightChannel = buffer.getWritePointer(1); //right channel samples
@@ -173,15 +173,15 @@ void NewProjectAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
         float samplesL = gain * trig1.process();
         float samplesR = gain * trig2.process();
 
-        
+
         leftChannel[i] = samplesR;
         rightChannel[i] = samplesR;
-        
+
 //        jassert (totalNumOutputChannels == 2);
 //        DBG( totalNumOutputChannels );
-        
+
     }
-    
+
 }
 
 //==============================================================================
